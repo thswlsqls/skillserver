@@ -17,6 +17,7 @@ public class TestService {
     @Autowired
     private final TestRepository testRepository;
 
+    @Transactional
     public int insertTestDomain(TestDomain td){
             log.info("TestService");
             testRepository.save(td);

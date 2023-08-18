@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class TestRepository {
 
-    @Autowired
     private final EntityManager em;
 
     public void save(TestDomain td){

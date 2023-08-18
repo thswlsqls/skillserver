@@ -26,14 +26,14 @@ public class TestController {
     }
 
     @GetMapping("/new")
-    @ResponseBody
+//    @ResponseBody
     public String insertTestDomain(){
         TestDomain td = new TestDomain();
         td.setCreate_user("test");
         td.setLast_update_user("test");
         testService.insertTestDomain(td);
         log.info("TestController");
-        return "/test/new";
+        return "test";
     }
 
 }

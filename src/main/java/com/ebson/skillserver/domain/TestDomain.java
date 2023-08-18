@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Getter @Setter
 public class TestDomain {
+    @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @ColumnDefault("UNHEX(REPLACE(UUID(), '-', ''))")
