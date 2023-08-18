@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>테스트유저 생성 페이지</title>
+</head>
+<body>
+    <div>
+        <h4>/resource/templates/testUser/createTestUserForm.html</h4>
+        <h3>테스트유저 등록</h3>
+    </div>
+    <div>
+        <form role="form" action="/test/testUser/create" th:object="${testUser}" method="post">
+            <label>이름: </label>
+            <input type="text" th:field="*{name}" placeholder="이름을 입력하세요">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

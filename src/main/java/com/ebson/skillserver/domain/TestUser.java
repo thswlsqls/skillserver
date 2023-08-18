@@ -13,13 +13,13 @@ import java.util.UUID;
 
 @Entity
 @Getter @Setter
-public class TestDomain {
+public class TestUser {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @ColumnDefault("UNHEX(REPLACE(UUID(), '-', ''))")
-    @Column(name = "domain_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID domain_id;
+    @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(16)")
+    private UUID user_id;
 
     @Column(nullable = true, length = 100)
     private String name;
