@@ -21,9 +21,8 @@ public class TestDomain {
     @Column(name = "domain_id", nullable = false, columnDefinition = "BINARY(16)")
     private UUID domain_id;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long domain_no;
+    @Column(nullable = true, length = 100)
+    private String name;
 
     @Column(nullable = false, length = 100)
     private String create_user;
