@@ -11,9 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
-import java.util.Random;
 
 @Controller
 @Slf4j
@@ -32,7 +30,6 @@ public class TestUserController {
 
     @PostMapping("/createTestUser")
     public String createTestUser(TestUser testUser, BindingResult result){
-        log.info(testUser.toString());
         // BindingResult는 폼의 값에 오류가 있을 경우에 그 값을 대신 갖고 실행함
         if(result.hasErrors()) {
             return "/testUser/createTestUserForm";
@@ -50,7 +47,18 @@ public class TestUserController {
     public String retrieveAllTestUsers(Model model){
         List<TestUser> testUserList = testUserService.retrieveAllTestUsers();
         model.addAttribute("testUserList", testUserList);
-        return "/testUser/testUserList";
+        return "/testUser/retrieveAllTestUsers";
     }
 
+    @GetMapping("/retrieveTestUserByUserIdForm")
+    public String retrieveTestUserByUserIdForm(Model model){
+        return "/testUser/retrieveTestUserByUserIdForm";
+    }
+
+    @PostMapping("/retrieveTestUserByUserId")
+    public String retrieveTestUserByUserId(String userId, Model model){
+        TestUser retrivedTestUser = testUserService.findOne(userId);
+        model.addAttribute("retrivedTestUser", retrivedTestUser);
+        return "/testUser/retrieveTestUserByUserIdForm";
+    }
 }

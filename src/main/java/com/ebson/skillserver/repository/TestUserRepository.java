@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Slf4j
@@ -27,12 +28,18 @@ public class TestUserRepository {
     }
 
 
-    public TestUser findOne(Long id) {
-        return em.find(TestUser.class, id);
+    public TestUser findOne(String userId) {
+        return (TestUser) em.createNativeQuery("SELECT * " +
+                                                        "FROM test_user tu " +
+                                                        "WHERE tu.user_id = unhex(?)", TestUser.class)
+                .setParameter(1, userId)
+                .getSingleResult();
     }
 
     public List<TestUser> findByName(String name){
-        return em.createQuery("select tu from TestUser tu where tu.name = :name", TestUser.class)
+        return em.createQuery("SELECT tu " +
+                                      "FROM TestUser tu " +
+                                      "WHERE tu.name = :name", TestUser.class)
                 .setParameter("name", name) //JPQL에서 ":" 뒤의 문자는 파라미터 변수로 인식함
                 .getResultList();
     }

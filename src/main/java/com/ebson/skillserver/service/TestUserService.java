@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -29,7 +30,7 @@ public class TestUserService {
         return testUserRepository.findAll();
     }
 
-    public TestUser findOne(Long userId){
+    public TestUser findOne(String userId){
         return testUserRepository.findOne(userId);
     }
 
