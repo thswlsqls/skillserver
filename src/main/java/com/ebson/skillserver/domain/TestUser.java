@@ -19,24 +19,24 @@ public class TestUser {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @ColumnDefault("UNHEX(REPLACE(UUID(), '-', ''))")
     @Column(name = "user_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID user_id;
+    private UUID userId;
 
-    @Column(nullable = true, length = 100)
+    @Column(name = "name", nullable = true, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 100)
-    private String create_user;
+    @Column(name = "create_user", nullable = false, length = 100)
+    private String createUser;
 
     @CreationTimestamp
     @ColumnDefault("CURRENT_TIMESTAMP()")
-    @Column(nullable = false)
-    private Date create_date;
+    @Column(name = "create_date", nullable = false)
+    private Date createDate;
 
-    @Column(nullable = false, length = 100)
-    private String last_update_user;
+    @Column(name = "last_update_user", nullable = false, length = 100)
+    private String lastUpdateUser;
 
     @ColumnDefault("CURRENT_TIMESTAMP()")
     @UpdateTimestamp
-    @Column(nullable = false)
-    private Date last_update_date;
+    @Column(name = "last_update_date", nullable = false)
+    private Date lastUpdateDate;
 }

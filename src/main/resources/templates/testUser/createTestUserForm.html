@@ -10,7 +10,7 @@
         <h3>테스트유저 등록</h3>
     </div>
     <div>
-        <form role="form" action="/test/testUser/create" th:object="${testUser}" method="post">
+        <form role="form" action="/testUser/createTestUser" th:object="${testUser}" method="post">
             <label>이름: </label>
             <input type="text" th:field="*{name}" placeholder="이름을 입력하세요">
             <button type="submit">Submit</button>

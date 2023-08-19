@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>테스트유저 목록 보기 페이지</title>
+</head>
+<body>
+<div>
+    <h4>/resource/templates/testUser/testUserList.html</h4>
+    <h3>테스트유저 목록</h3>
+</div>
+<div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>유저아이디</th>
+                    <th>이름</th>
+                    <th>생성유저</th>
+                    <th>생성일시</th>
+                    <th>최근업데이트유저</th>
+                    <th>최근업데이트일시</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="testUser : ${testUserList}">
+                <td th:text="${testUser.userId}"></td>
+                <td th:text="${testUser.name}"></td>
+                <td th:text="${testUser.createUser}"></td>
+                <td th:text="${testUser.createDate}"></td>
+                <td th:text="${testUser.lastUpdateUser}"></td>
+                <td th:text="${testUser.lastUpdateDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
-public class TestRepository {
+public class TestUserRepository {
 
     private final EntityManager em;
 
@@ -19,13 +19,16 @@ public class TestRepository {
         em.persist(tu);
     }
 
-    public TestUser findOne(Long id) {
-        return em.find(TestUser.class, id); // 단건조회
+    public List<TestUser> findAll() {
+        return em.createQuery("SELECT tu " +
+                                      "FROM TestUser tu " +
+                                      "ORDER BY lastUpdateDate DESC", TestUser.class)
+                .getResultList(); //JPQL은 SQL로 번역되며 기능적으로는 동일하나, SQL과 달리 테이블이 아니라 엔티티 객체에 대해 질의함
     }
 
-    public List<TestUser> findAll() {
-        return em.createQuery("select tu from TestUser tu", TestUser.class)
-                .getResultList(); //JPQL은 SQL로 번역되며 기능적으로는 동일하나, SQL과 달리 테이블이 아니라 엔티티 객체에 대해 질의함
+
+    public TestUser findOne(Long id) {
+        return em.find(TestUser.class, id);
     }
 
     public List<TestUser> findByName(String name){
