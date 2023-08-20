@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -34,9 +33,9 @@ public class TestUserService {
         return testUserRepository.findOne(userId);
     }
 
-    private void validateDuplicateMember(TestUser tu) {
-        List<TestUser> findDomains = testUserRepository.findByName(tu.getName());
-        if (!findDomains.isEmpty()){
+    private void validateDuplicateTestUser(TestUser tu) {
+        TestUser findedTestUser =  testUserRepository.findOne(tu.getUserId().toString().replace("-", "")); // testUserRepository.findByName(tu.getName());
+        if (findedTestUser != null){
             throw new IllegalStateException("이미 존재하는 도메인입니다.");
         }
     }

@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
-
 @Repository
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +25,6 @@ public class TestUserRepository {
                 .getResultList(); //JPQL은 SQL로 번역되며 기능적으로는 동일하나, SQL과 달리 테이블이 아니라 엔티티 객체에 대해 질의함
     }
 
-
     public TestUser findOne(String userId) {
         return (TestUser) em.createNativeQuery("SELECT * " +
                                                         "FROM test_user tu " +
@@ -39,7 +36,8 @@ public class TestUserRepository {
     public List<TestUser> findByName(String name){
         return em.createQuery("SELECT tu " +
                                       "FROM TestUser tu " +
-                                      "WHERE tu.name = :name", TestUser.class)
+                                      "WHERE tu.name = :name " +
+                                      "ORDER BY tu.lastUpdateDate DESC", TestUser.class)
                 .setParameter("name", name) //JPQL에서 ":" 뒤의 문자는 파라미터 변수로 인식함
                 .getResultList();
     }
