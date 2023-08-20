@@ -40,7 +40,7 @@ public class TestUserRepositoryTest {
     @Test
     @DisplayName("test_user 테이블의 모든 로우들을 조회하고 개수를 테스트")
     public void findAllTest(){
-        Assertions.assertEquals(3, testUserRepository.findAll().size());
+        Assertions.assertEquals(5, testUserRepository.findAll().size());
     }
 
 }

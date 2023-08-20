@@ -32,7 +32,7 @@ public class TestUserServiceTest {
     @Test
     @DisplayName("retrieveAllTestUsers 메서드 호출 결과 정상인지 테스트")
     public void retrieveAllTestUsersTest(){
-        Assertions.assertEquals(3, testUserService.retrieveAllTestUsers().size());
+        Assertions.assertEquals(5, testUserService.retrieveAllTestUsers().size());
     }
 
     @Test
