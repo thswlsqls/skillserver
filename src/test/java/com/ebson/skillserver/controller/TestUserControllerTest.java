@@ -1,6 +1,5 @@
 package com.ebson.skillserver.controller;
 
-import com.ebson.skillserver.domain.TestUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
