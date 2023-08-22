@@ -12,7 +12,7 @@ import java.util.Date;
 @Slf4j
 @Aspect
 @Component
-public class TimeTraceAop {
+public class TimeTraceAopConfig {
 
     @Around("execution(* com.ebson.skillserver..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable{
