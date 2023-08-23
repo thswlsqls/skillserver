@@ -1,4 +1,4 @@
-package com.ebson.skillserver.aop;
+package com.ebson.skillserver.config.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.Joinpoint;
