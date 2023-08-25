@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.UUID;
 
-@SpringBootTestgit
+@SpringBootTest
 public class TestRedisRepositoryTest {
 
     @Autowired
