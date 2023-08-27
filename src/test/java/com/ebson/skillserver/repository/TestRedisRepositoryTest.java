@@ -1,6 +1,6 @@
 package com.ebson.skillserver.repository;
 
-import com.ebson.skillserver.domain.TestRedis;
+import com.ebson.skillserver.domain.redis.TestRedis;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ public class TestRedisRepositoryTest {
     private static UUID testRedisId_3 = UUID.randomUUID();
 
     @BeforeEach
-    public void beforeEachTest(){
+    public void beforeEach(){
         testRedisRepository.deleteAll();
     }
 

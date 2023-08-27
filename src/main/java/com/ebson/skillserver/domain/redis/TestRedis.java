@@ -1,4 +1,4 @@
-package com.ebson.skillserver.domain;
+package com.ebson.skillserver.domain.redis;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.ebson.skillserver.repository;
 
-import com.ebson.skillserver.domain.TestRedis;
+import com.ebson.skillserver.domain.redis.TestRedis;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
