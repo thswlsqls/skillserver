@@ -43,4 +43,10 @@ public class TestUserRepositoryTest {
         Assertions.assertEquals(5, testUserRepository.findAll().size());
     }
 
+    @Test
+    @DisplayName("testUserRepository.deleteAllByName()")
+    public void deleteByName(){
+        Assertions.assertEquals(1, testUserRepository.deleteAllByName("테스트유저1"));
+    }
+
 }

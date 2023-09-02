@@ -13,10 +13,10 @@ import java.util.UUID;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("testRedis")
+@RedisHash("testRedis") // Key prefix
 public class TestRedis {
 
-    @Id
+    @Id // Key
     private UUID testRedisId;
     private int no;
     private String createUser;

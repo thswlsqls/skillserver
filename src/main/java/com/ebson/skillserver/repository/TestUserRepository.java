@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository
@@ -40,6 +41,14 @@ public class TestUserRepository {
                                       "ORDER BY tu.lastUpdateDate DESC", TestUser.class)
                 .setParameter("name", name) //JPQL에서 ":" 뒤의 문자는 파라미터 변수로 인식함
                 .getResultList();
+    }
+
+    @Transactional
+    public long deleteAllByName(String name){
+        long rows = em.createQuery("DELETE FROM TestUser tu WHERE tu.name = :name")
+                .setParameter("name", name)
+                .executeUpdate();
+        return rows;
     }
 
 }
