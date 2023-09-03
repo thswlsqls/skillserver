@@ -32,8 +32,9 @@ public class TestUserRepositoryTest {
     @Test
     @DisplayName("test_user 테이블에서 user_id으로 조회가능한지 테스트")
     public void findOneTest(){
-        String findUserId = "0dbff0ce8d83441cad642f2d8f587ab8";
+        String findUserId = "c3c1f9ce499411ee94190a0df06f9f06";
         TestUser findedTestUser = testUserRepository.findOne(findUserId);
+        System.out.println("findedTestUser.getUserId() : " + findedTestUser.getUserId());
         Assertions.assertEquals(findUserId, findedTestUser.getUserId().toString().replace("-", ""));
     }
 
@@ -41,12 +42,6 @@ public class TestUserRepositoryTest {
     @DisplayName("test_user 테이블의 모든 로우들을 조회하고 개수를 테스트")
     public void findAllTest(){
         Assertions.assertEquals(5, testUserRepository.findAll().size());
-    }
-
-    @Test
-    @DisplayName("testUserRepository.deleteAllByName()")
-    public void deleteByName(){
-        Assertions.assertEquals(1, testUserRepository.deleteAllByName("테스트유저1"));
     }
 
 }

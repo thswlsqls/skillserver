@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @Slf4j
 @RequiredArgsConstructor
@@ -15,6 +18,7 @@ public class TestUserRepository {
 
     private final EntityManager em;
 
+    @Transactional
     public void save(TestUser tu){
         em.persist(tu);
     }
@@ -51,4 +55,29 @@ public class TestUserRepository {
         return rows;
     }
 
+    @Transactional
+    public int save_custom(TestUser testUser){
+        UUID userId = testUser.getUserId();
+        String name = testUser.getName();
+        String createUser = testUser.getCreateUser();
+        String lastUpdateUser = testUser.getLastUpdateUser();
+        return em.createNativeQuery("INSERT INTO test_user" +
+                                            "(" +
+                                            "user_id" +
+                                            ", name" +
+                                            ", create_user" +
+                                            ", last_update_user" +
+                                            ")" +
+                                            "VALUES" +
+                                            "(" +
+                                            "UNHEX(REPLACE(?, '-', ''))" +
+                                            ", ?" +
+                                            ", ?" +
+                                            ", ?" +
+                                            ")").setParameter(1, userId.toString())
+                                            .setParameter(2, name)
+                                            .setParameter(3, createUser)
+                                            .setParameter(4, lastUpdateUser)
+                                            .executeUpdate();
+    }
 }
