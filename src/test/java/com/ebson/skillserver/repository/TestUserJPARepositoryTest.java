@@ -1,9 +1,14 @@
 package com.ebson.skillserver.repository;
 
 import com.ebson.skillserver.domain.TestUser;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,5 +175,130 @@ public class TestUserJPARepositoryTest {
         testUserJPARepository.deleteAll(testUserList);
         Assertions.assertTrue(testUserJPARepository.findAllById(userIdList).isEmpty());
     }
+
+    @Test
+    @DisplayName("flush test")
+    public void flush(){
+        TestUser testUSer = new TestUser();
+        UUID userId = UUID.randomUUID();
+        testUSer.setUserId(userId);
+        testUSer.setName("test");
+        testUSer.setCreateUser("system");
+        testUSer.setLastUpdateUser("system");
+        testUserRepository.save_custom(testUSer);
+        Optional<TestUser> findUser = testUserJPARepository.findById(userId);
+        Assertions.assertNull(findUser);
+    }
+
+//    /**
+//     * Flushes all pending changes to the database.
+//     */
+//    void flush();
+//
+//    /**
+//     * Saves an entity and flushes changes instantly.
+//     *
+//     * @param entity entity to be saved. Must not be {@literal null}.
+//     * @return the saved entity
+//     */
+//    <S extends T> S saveAndFlush(S entity);
+//
+//    /**
+//     * Saves all entities and flushes changes instantly.
+//     *
+//     * @param entities entities to be saved. Must not be {@literal null}.
+//     * @return the saved entities
+//     * @since 2.5
+//     */
+//    <S extends T> List<S> saveAllAndFlush(Iterable<S> entities);
+//
+//    /**
+//     * Deletes the given entities in a batch which means it will create a single query. This kind of operation leaves JPAs
+//     * first level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this
+//     * method.
+//     *
+//     * @param entities entities to be deleted. Must not be {@literal null}.
+//     * @deprecated Use {@link #deleteAllInBatch(Iterable)} instead.
+//     */
+//    @Deprecated
+//    default void deleteInBatch(Iterable<T> entities) {
+//        deleteAllInBatch(entities);
+//    }
+//
+//    /**
+//     * Deletes the given entities in a batch which means it will create a single query. This kind of operation leaves JPAs
+//     * first level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this
+//     * method.
+//     *
+//     * @param entities entities to be deleted. Must not be {@literal null}.
+//     * @since 2.5
+//     */
+//    void deleteAllInBatch(Iterable<T> entities);
+//
+//    /**
+//     * Deletes the entities identified by the given ids using a single query. This kind of operation leaves JPAs first
+//     * level cache and the database out of sync. Consider flushing the {@link EntityManager} before calling this method.
+//     *
+//     * @param ids the ids of the entities to be deleted. Must not be {@literal null}.
+//     * @since 2.5
+//     */
+//    void deleteAllByIdInBatch(Iterable<ID> ids);
+//
+//    /**
+//     * Deletes all entities in a batch call.
+//     */
+//    void deleteAllInBatch();
+//
+//    /**
+//     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+//     * implemented this is very likely to always return an instance and throw an
+//     * {@link jakarta.persistence.EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+//     * immediately.
+//     *
+//     * @param id must not be {@literal null}.
+//     * @return a reference to the entity with the given identifier.
+//     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+//     * @deprecated use {@link JpaRepository#getReferenceById(ID)} instead.
+//     */
+//    @Deprecated
+//    T getOne(ID id);
+//
+//    /**
+//     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+//     * implemented this is very likely to always return an instance and throw an
+//     * {@link jakarta.persistence.EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+//     * immediately.
+//     *
+//     * @param id must not be {@literal null}.
+//     * @return a reference to the entity with the given identifier.
+//     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+//     * @deprecated use {@link JpaRepository#getReferenceById(ID)} instead.
+//     * @since 2.5
+//     */
+//    @Deprecated
+//    T getById(ID id);
+//
+//    /**
+//     * Returns a reference to the entity with the given identifier. Depending on how the JPA persistence provider is
+//     * implemented this is very likely to always return an instance and throw an
+//     * {@link jakarta.persistence.EntityNotFoundException} on first access. Some of them will reject invalid identifiers
+//     * immediately.
+//     *
+//     * @param id must not be {@literal null}.
+//     * @return a reference to the entity with the given identifier.
+//     * @see EntityManager#getReference(Class, Object) for details on when an exception is thrown.
+//     * @since 2.7
+//     */
+//    T getReferenceById(ID id);
+//
+//    /*
+//     * (non-Javadoc)
+//     * @see org.springframework.data.repository.query.QueryByExampleExecutor#findAll(org.springframework.data.domain.Example)
+//     */
+//    @Override
+//    <S extends T> List<S> findAll(Example<S> example);
+//
+//    @Override
+//    <S extends T> List<S> findAll(Example<S> example, Sort sort);
 
 }
