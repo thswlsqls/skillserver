@@ -2,9 +2,13 @@ package com.ebson.skillserver.repository;
 
 import com.ebson.skillserver.domain.TestUser;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.FlushModeType;
+import jakarta.transaction.Transaction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +21,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TestUserRepository {
 
+    @Autowired
     private EntityManager em;
-
-    public TestUserRepository(EntityManager em){
-        this.em = em;
-        em.setFlushMode(FlushModeType.COMMIT);
-    }
-
 
     @Transactional
     public void save(TestUser tu){
@@ -64,7 +63,6 @@ public class TestUserRepository {
 
     @Transactional
     public int save_custom(TestUser testUser){
-
         UUID userId = testUser.getUserId();
         String name = testUser.getName();
         String createUser = testUser.getCreateUser();
@@ -88,4 +86,12 @@ public class TestUserRepository {
                                             .setParameter(4, lastUpdateUser)
                                             .executeUpdate();
     }
+
+    @Transactional
+    public int deleteById_custom(UUID userId){
+        return em.createNativeQuery("DELETE FROM test_user WHERE 1=1 AND user_id = UNHEX(REPLACE(LOWER(?), '-', ''))")
+                .setParameter(1, userId.toString())
+                .executeUpdate();
+    }
+
 }

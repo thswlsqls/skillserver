@@ -2,13 +2,11 @@ package com.ebson.skillserver.repository;
 
 import com.ebson.skillserver.domain.TestUser;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,18 +174,35 @@ public class TestUserJPARepositoryTest {
         Assertions.assertTrue(testUserJPARepository.findAllById(userIdList).isEmpty());
     }
 
+    @Autowired
+    private EntityManager em;
+
     @Test
     @DisplayName("flush test")
+    @Transactional
     public void flush(){
-        TestUser testUSer = new TestUser();
+        System.out.println("em.getFlushMode()" + em.getFlushMode());
         UUID userId = UUID.randomUUID();
-        testUSer.setUserId(userId);
-        testUSer.setName("test");
-        testUSer.setCreateUser("system");
-        testUSer.setLastUpdateUser("system");
-        testUserRepository.save_custom(testUSer);
-        Optional<TestUser> findUser = testUserJPARepository.findById(userId);
-        Assertions.assertNull(findUser);
+        em.createNativeQuery("INSERT INTO test_user" +
+                        "(" +
+                        "user_id" +
+                        ", name" +
+                        ", create_user" +
+                        ", last_update_user" +
+                        ")" +
+                        "VALUES" +
+                        "(" +
+                        "UNHEX(REPLACE(?, '-', ''))" +
+                        ", ?" +
+                        ", ?" +
+                        ", ?" +
+                        ")").setParameter(1, userId.toString())
+                .setParameter(2, "test")
+                .setParameter(3, "system")
+                .setParameter(4, "system")
+                .executeUpdate();
+        int cnt = testUserRepository.deleteById_custom(userId);
+        Assertions.assertEquals(0, cnt);
     }
 
 //    /**
