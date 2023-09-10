@@ -178,7 +178,7 @@ public class TestUserJPARepositoryTest {
     private EntityManager em;
 
     @Test
-    @DisplayName("flush test")
+    @DisplayName("testUserJPARepository.flush()")
     @Transactional
     public void flush(){
         System.out.println("em.getFlushMode()" + em.getFlushMode());
