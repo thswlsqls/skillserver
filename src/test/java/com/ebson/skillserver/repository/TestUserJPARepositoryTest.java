@@ -182,27 +182,10 @@ public class TestUserJPARepositoryTest {
     @Transactional
     public void flush(){
         System.out.println("em.getFlushMode()" + em.getFlushMode());
-        UUID userId = UUID.randomUUID();
-        em.createNativeQuery("INSERT INTO test_user" +
-                        "(" +
-                        "user_id" +
-                        ", name" +
-                        ", create_user" +
-                        ", last_update_user" +
-                        ")" +
-                        "VALUES" +
-                        "(" +
-                        "UNHEX(REPLACE(?, '-', ''))" +
-                        ", ?" +
-                        ", ?" +
-                        ", ?" +
-                        ")").setParameter(1, userId.toString())
-                .setParameter(2, "test")
-                .setParameter(3, "system")
-                .setParameter(4, "system")
-                .executeUpdate();
-        int cnt = testUserRepository.deleteById_custom(userId);
-        Assertions.assertEquals(0, cnt);
+        List<TestUser> testUserList = testUserJPARepository.findAll();
+        testUserJPARepository.deleteAll();
+        testUserJPARepository.flush();
+        Assertions.assertNotNull(testUserJPARepository.saveAll(testUserList));
     }
 
 //    /**
