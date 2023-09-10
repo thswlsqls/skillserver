@@ -173,15 +173,10 @@ public class TestUserJPARepositoryTest {
         testUserJPARepository.deleteAll(testUserList);
         Assertions.assertTrue(testUserJPARepository.findAllById(userIdList).isEmpty());
     }
-
-    @Autowired
-    private EntityManager em;
-
     @Test
     @DisplayName("testUserJPARepository.flush()")
     @Transactional
     public void flush(){
-        System.out.println("em.getFlushMode()" + em.getFlushMode());
         List<TestUser> testUserList = testUserJPARepository.findAll();
         testUserJPARepository.deleteAll();
         testUserJPARepository.flush();
